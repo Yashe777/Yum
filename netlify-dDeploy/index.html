@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio</title>
+    <meta name="description" content="Professional digital content portfolio. High quality work showcase.">
+    <meta property="og:title" content="Professional Portfolio">
+    <meta property="og:description" content="View my professional work portfolio.">
+    <meta property="og:image" content="https://gentle-dango-3dd09e.netlify.app/og-preview.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gentle-dango-3dd09e.netlify.app/">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Safe version for bots */
+        .safe-version {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .safe-version h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .safe-version p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .safe-version .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        
+        /* Real version for users - same as your original */
+        .real-version {
+            display: none;
+        }
+        
+        body.real-user .safe-version {
+            display: none;
+        }
+        
+        body.real-user .real-version {
+            display: block;
+        }
+        
+        body.real-user {
+            background: #000000;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Only show background GIF when real user class is active */
+        body.real-user .real-version::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background-image: url('Payhip_Marketing/large-preview.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.5);
+            z-index: 0;
+        }
+        
+        body.real-user .real-version::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 100%;
+            min-height: 100vh;
+            padding-right: 5%;
+        }
+        
+        .large-preview {
+            display: none;
+        }
+        
+        .container {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border: 3px solid #ff0066;
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: none;
+            width: 45%;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(255, 0, 102, 0.6), 0 20px 80px rgba(0,0,0,0.9);
+            animation: fadeIn 0.5s ease, glow 3s ease-in-out infinite;
+            position: relative;
+            z-index: 10;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(255, 0, 102, 0.3), 0 20px 60px rgba(0,0,0,0.8); }
+            50% { box-shadow: 0 0 60px rgba(255, 0, 102, 0.5), 0 20px 80px rgba(255, 0, 102, 0.2); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #ff0066;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 102, 0.8), 0 0 40px rgba(255, 0, 102, 0.4);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        p {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .features {
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .feature {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255, 0, 102, 0.1);
+            border: 1px solid rgba(255, 0, 102, 0.3);
+            border-radius: 10px;
+            font-size: 1.1em;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            background: rgba(255, 0, 102, 0.2);
+            border-color: #ff0066;
+            transform: translateX(5px);
+        }
+        
+        .feature::before {
+            content: "✓ ";
+            color: #ff0066;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #ff0066 0%, #cc0052 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(255, 0, 102, 0.6), 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff0066;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 0, 102, 0.9), 0 15px 40px rgba(255, 0, 102, 0.4);
+            background: linear-gradient(135deg, #ff1a75 0%, #ff0066 100%);
+        }
+        
+        .warning {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 0, 102, 0.15);
+            border: 2px solid #ff0066;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 0.95em;
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.3);
+        }
+        
+        .warning strong {
+            color: #ff0066;
+            text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+        }
+        
+        .gif-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+        
+        .gif-box {
+            flex: 1;
+            height: 120px;
+            border: 2px solid #ff0066;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.4);
+            transition: all 0.3s;
+            background: #1a0a1a;
+        }
+        
+        .gif-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 0, 102, 0.8);
+        }
+        
+        .gif-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff0066;
+            border-radius: 50%;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100vh) translateX(100px); }
+        }
+        
+        @media (max-width: 1000px) {
+            .content-wrapper {
+                justify-content: center;
+                padding-right: 0;
+            }
+            .container {
+                width: 90%;
+                max-width: 600px;
+            }
+            body.real-user::before {
+                width: 100%;
+                filter: brightness(0.3) blur(8px);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .gif-container {
+                flex-wrap: nowrap;
+                gap: 5px;
+            }
+            .gif-box {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SAFE VERSION - For Facebook Bots -->
+    <div class="safe-version">
+        <h1>📸 Professional Portfolio</h1>
+        <p>Welcome to my professional digital content portfolio.</p>
+        <p>High-quality work showcase featuring premium content.</p>
+        <p>Click below to view my collection.</p>
+        <a href="https://payhip.com/b/8Dtxl" class="button">View Portfolio</a>
+    </div>
+    
+    <!-- REAL VERSION - For Real Users -->
+    <div class="real-version">
+        <div class="particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- Large Preview on Left -->
+            <div class="large-preview">
+                <img src="Payhip_Marketing/large-preview.gif" alt="Preview">
+            </div>
+            
+            <!-- Content on Right -->
+            <div class="container">
+            <h1>🎨 Premium Content Collection</h1>
+            <p>Exclusive high-quality content collection. Professional grade images and videos.</p>
+            
+            <div class="features">
+                <div class="feature">High-resolution professional content</div>
+                <div class="feature">Instant digital download</div>
+                <div class="feature">Lifetime access - download anytime</div>
+                <div class="feature">Compatible with all devices</div>
+            </div>
+            
+            <a href="https://payhip.com/b/8Dtxl" class="cta-button">
+                🔥 Get Access Now
+            </a>
+            
+            <div class="warning">
+                ⚠️ <strong>18+ Only</strong> - This content is intended for adults only. 
+                By clicking above, you confirm you are 18 years or older.
+            </div>
+            
+            <!-- GIF Previews -->
+            <div class="gif-container">
+                <div class="gif-box">
+                    <img src="Payhip_Marketing/preview-gif-1.gif" alt="Preview 1">
+                </div>
+                <div class="gif-box">
+                    <img src="Payhip_Marketing/preview-gif-2.gif" alt="Preview 2">
+                </div>
+                <div class="gif-box">
+                    <img src="Payhip_Marketing/preview-gif-3.gif" alt="Preview 3">
+                </div>
+            </div>
+            
+            <p style="font-size: 0.9em; color: #aaaaaa; margin-top: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                🔒 Secure payment • ⚡ Instant delivery • 💎 For personal use only
+            </p>
+        </div>
+        </div>
+    </div>
+    
+    <script>
+        // Bot detection - Show safe version to bots, real version to users
+        function isBot() {
+            const botPatterns = [
+                /bot/i, /crawl/i, /spider/i, /facebookexternalhit/i,
+                /WhatsApp/i, /Slack/i, /Twitter/i, /LinkedInBot/i,
+                /facebook/i, /Instagram/i, /pinterest/i
+            ];
+            
+            const userAgent = navigator.userAgent;
+            
+            // Check if user agent matches bot patterns
+            for (let pattern of botPatterns) {
+                if (pattern.test(userAgent)) {
+                    return true;
+                }
+            }
+            
+            // Check for headless browsers
+            if (navigator.webdriver) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        // Additional check: require user interaction
+        let userInteracted = false;
+        
+        function showRealContent() {
+            if (!isBot() && userInteracted) {
+                document.body.classList.add('real-user');
+            }
+        }
+        
+        // Track user interaction
+        document.addEventListener('mousemove', function() {
+            userInteracted = true;
+            showRealContent();
+        }, { once: true });
+        
+        document.addEventListener('touchstart', function() {
+            userInteracted = true;
+            showRealContent();
+        }, { once: true });
+        
+        document.addEventListener('scroll', function() {
+            userInteracted = true;
+            showRealContent();
+        }, { once: true });
+        
+        // Delay check to ensure it's not a bot
+        setTimeout(function() {
+            if (!isBot()) {
+                userInteracted = true;
+                showRealContent();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
